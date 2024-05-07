@@ -12,6 +12,6 @@ jobs:
       - name: Echo the message
         run: |
           echo "HOLA PROGRAMADORES!"
-      - name: Dime la fecha de hoy
+      - name: Dime la fecha
         run: date
       - run: ls -l
