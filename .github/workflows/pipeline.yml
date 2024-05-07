@@ -8,6 +8,13 @@ on:
     types: [opened, synchronize]
 
 jobs:
+  avoid_reduncy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Redundant Builds
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
 
   build:
     runs-on: ubuntu-latest
@@ -32,10 +39,9 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/checkout@v2
         with:
-          name: dist
-          path: dist
+          fetch-depth: 0
       - name: Deploy to DigitalOcean
         if: ${{ github.event_name == 'push' }}
         env:
